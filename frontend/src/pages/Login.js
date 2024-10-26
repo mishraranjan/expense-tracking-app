@@ -1,3 +1,4 @@
+// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,14 +8,13 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://expense-tracking-backend-oht2.onrender.com/api/auth/login', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
         username,
         password,
-      });
+      }, { withCredentials: true }); // Include credentials if needed
       localStorage.setItem('token', response.data.token);
       navigate('/dashboard');
     } catch (error) {

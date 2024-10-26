@@ -1,4 +1,4 @@
-// src/components/TransactionHistory.js
+// TransactionHistory.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -20,12 +20,13 @@ const TransactionHistory = ({ expenses, onExpenseUpdated, onExpenseDeleted }) =>
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(`https://expense-tracking-backend-oht2.onrender.com/api/expenses/edit/${selectedExpense._id}`, {
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/expenses/edit/${selectedExpense._id}`, {
         amount,
         description,
         date: selectedExpense.date,
       }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        withCredentials: true // Include credentials if needed
       });
 
       // Call the onExpenseUpdated callback with the updated expense
@@ -38,8 +39,9 @@ const TransactionHistory = ({ expenses, onExpenseUpdated, onExpenseDeleted }) =>
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://expense-tracking-backend-oht2.onrender.com/api/expenses/delete/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/expenses/delete/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        withCredentials: true // Include credentials if needed
       });
       // Call the onExpenseDeleted callback
       onExpenseDeleted(id);

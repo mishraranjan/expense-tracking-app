@@ -1,3 +1,4 @@
+// Dashboard.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Bar } from "react-chartjs-2";
@@ -32,14 +33,16 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userResponse = await axios.get("https://expense-tracking-backend-oht2.onrender.com/api/auth/user", {
+        const userResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/user`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true, // Include credentials if needed
         });
         setIncome(userResponse.data.income);
         setUsername(userResponse.data.username); 
 
-        const expenseResponse = await axios.get("https://expense-tracking-backend-oht2.onrender.com/api/expenses/all", {
+        const expenseResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/expenses/all`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: true, // Include credentials if needed
         });
         setExpenses(expenseResponse.data);
       } catch (error) {

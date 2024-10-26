@@ -1,3 +1,4 @@
+// Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,11 +12,11 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://expense-tracking-backend-oht2.onrender.com/api/auth/register', {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, {
         username,
         password,
         income,
-      });
+      }, { withCredentials: true }); // Include credentials if needed
       navigate('/login');
     } catch (error) {
       console.error('Registration failed', error);

@@ -1,4 +1,4 @@
-// src/components/ExpenseForm.js
+// ExpenseForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -13,9 +13,9 @@ function ExpenseForm({ onExpenseAdded }) {
 
     try {
       const response = await axios.post(
-        'https://expense-tracking-backend-oht2.onrender.com/api/expenses/add',
+        `${process.env.REACT_APP_BACKEND_URL}/api/expenses/add`,
         { amount, description, date },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true } // Include credentials if needed
       );
       onExpenseAdded(response.data);
       setAmount('');
