@@ -20,7 +20,7 @@ const TransactionHistory = ({ expenses, onExpenseUpdated, onExpenseDeleted }) =>
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/expenses/edit/${selectedExpense._id}`, {
+      const response = await axios.put(`https://expense-tracking-backend-oht2.onrender.com/api/expenses/edit/${selectedExpense._id}`, {
         amount,
         description,
         date: selectedExpense.date,
@@ -39,7 +39,7 @@ const TransactionHistory = ({ expenses, onExpenseUpdated, onExpenseDeleted }) =>
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/expenses/delete/${id}`, {
+      await axios.delete(`https://expense-tracking-backend-oht2.onrender.com/api/expenses/delete/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         withCredentials: true // Include credentials if needed
       });

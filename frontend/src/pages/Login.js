@@ -11,7 +11,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL || `http://localhost:5000`}/api/auth/login`, {
+      const response = await axios.post(`https://expense-tracking-backend-oht2.onrender.com/api/auth/login`, {
         username,
         password,
       }, { withCredentials: true }); 
