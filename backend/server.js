@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -11,10 +9,13 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL || 'http://localhost:3000' : '*',
+  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : '*',
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add other methods as needed
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
   optionsSuccessStatus: 200,
 };
+
 
 // Use CORS with the specified options
 app.use(cors(corsOptions));
