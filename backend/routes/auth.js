@@ -22,13 +22,18 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
+
   if (user && await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    
+    console.log("Generated Token: ", token); // Log the generated token
+
     res.json({ token });
   } else {
     res.status(400).json({ message: 'Invalid credentials' });
   }
 });
+
 
 router.get('/user', authMiddleware, async (req, res) => {
     try {

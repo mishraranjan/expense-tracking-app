@@ -11,10 +11,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL || `http://localhost:5000`}/api/auth/login`, {
         username,
         password,
-      }, { withCredentials: true }); // Include credentials if needed
+      }, { withCredentials: true }); 
+      console.log(response.data);
       localStorage.setItem('token', response.data.token);
       navigate('/dashboard');
     } catch (error) {
