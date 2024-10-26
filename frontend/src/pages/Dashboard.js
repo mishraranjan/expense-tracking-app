@@ -37,6 +37,7 @@ const Dashboard = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           withCredentials: true, // Include credentials if needed
         });
+        console.log(`${process.env.REACT_APP_BACKEND_URL}/api/auth/user`);
         setIncome(userResponse.data.income);
         setUsername(userResponse.data.username); 
 
