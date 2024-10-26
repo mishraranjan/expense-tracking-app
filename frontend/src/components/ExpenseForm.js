@@ -13,7 +13,7 @@ function ExpenseForm({ onExpenseAdded }) {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/expenses/add`,
+        `https://expense-tracking-backend-oht2.onrender.com/api/expenses/add`,
         { amount, description, date },
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true } // Include credentials if needed
       );
