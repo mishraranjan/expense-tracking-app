@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -45,7 +45,7 @@ function Login() {
           Login
         </button>
         <p className="mt-4 text-center">
-          Don't have an account? <a href="/register" className="text-blue-500">Register</a>
+          Don't have an account? <Link to={"/register"} className="text-blue-500">Register</Link>
         </p>
       </form>
     </div>
