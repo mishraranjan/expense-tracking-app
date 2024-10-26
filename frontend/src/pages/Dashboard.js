@@ -45,7 +45,7 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false); x
+        setLoading(false); 
       }
     };
 
@@ -74,7 +74,7 @@ const Dashboard = () => {
   };
 
   const chartData = {
-    labels: ["Income", "Balance", "Expenses"], l
+    labels: ["Income", "Balance", "Expenses"], 
     datasets: [
       {
         label: "Amount",
