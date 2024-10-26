@@ -1,6 +1,4 @@
-// src/routes/auth.js
-
-// Existing imports
+/
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -9,7 +7,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Register route
 router.post('/register', async (req, res) => {
   const { username, password, income } = req.body;
   try {
@@ -22,7 +19,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login route
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
@@ -34,7 +30,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Get user data
 router.get('/user', authMiddleware, async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select('-password'); // Exclude password
@@ -44,9 +39,7 @@ router.get('/user', authMiddleware, async (req, res) => {
     }
   });
 
-// Logout route
 router.post('/logout', (req, res) => {
-  // No server-side action needed for JWT logout
   res.json({ message: 'Logout successful' });
 });
 

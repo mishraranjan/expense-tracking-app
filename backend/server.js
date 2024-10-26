@@ -7,17 +7,19 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
-// Import routes
+const corsOptions = {
+  origin: process.env.FRONTEND_URL,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
 const authRoutes = require('./routes/auth');
 const expenseRoutes = require('./routes/expenses');
 
-// Use routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
