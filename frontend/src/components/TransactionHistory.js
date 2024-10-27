@@ -63,7 +63,7 @@ const TransactionHistory = ({ expenses, onExpenseUpdated, onExpenseDeleted }) =>
       <ul className="mb-4">
         {filteredExpenses.map((expense) => (
           <li key={expense._id} className="flex justify-between items-center mb-2">
-            <span>{expense.description}: ${expense.amount}</span>
+            <span>{expense.description}: ₹{expense.amount}</span>
             <div>
               <button 
                 onClick={() => handleEdit(expense)} 
