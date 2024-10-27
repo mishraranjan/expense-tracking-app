@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://expense-tracking-frontend.onrender.com/',
+  origin: 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add other methods as needed
   allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
