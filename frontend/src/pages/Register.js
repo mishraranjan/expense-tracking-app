@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify"; 
-import { BACKEND_URL } from './constant'; // Import your BACKEND_URL constant
+import BACKEND_URL from '../constant/url';
 
 function Register() {
   const [username, setUsername] = useState('');

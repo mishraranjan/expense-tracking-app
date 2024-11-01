@@ -1,7 +1,7 @@
 // TransactionHistory.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { BACKEND_URL } from '../constant'; // Import the BACKEND_URL constant
+import BACKEND_URL from '../constant/url';
 
 const TransactionHistory = ({ expenses, onExpenseUpdated, onExpenseDeleted }) => {
   const [searchTerm, setSearchTerm] = useState('');

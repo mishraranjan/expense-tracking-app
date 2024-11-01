@@ -1,7 +1,7 @@
 // ExpenseForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { BACKEND_URL } from '../constant'; // Import the BACKEND_URL constant
+import BACKEND_URL from '../constant/url';
 
 function ExpenseForm({ onExpenseAdded }) {
   const [amount, setAmount] = useState('');

@@ -16,8 +16,7 @@ import {
 import ExpenseForm from "../components/ExpenseForm"; 
 import Navbar from "../components/Navbar";
 import TransactionHistory from "../components/TransactionHistory"; 
-import { BACKEND_URL } from '../constant'; // Import the BACKEND_URL constant
-
+import BACKEND_URL from "../constant/url";
 ChartJS.register(
   CategoryScale,
   LinearScale,
