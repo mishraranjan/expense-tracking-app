@@ -1,6 +1,7 @@
 // ExpenseForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BACKEND_URL } from '../constant'; // Import the BACKEND_URL constant
 
 function ExpenseForm({ onExpenseAdded }) {
   const [amount, setAmount] = useState('');
@@ -13,17 +14,18 @@ function ExpenseForm({ onExpenseAdded }) {
 
     try {
       const response = await axios.post(
-        `https://expense-tracking-backend-oht2.onrender.com/api/expenses/add`,
+        `${BACKEND_URL}/api/expenses/add`, // Use BACKEND_URL here
         { amount, description, date },
-        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true } // Include credentials if needed
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
+
       onExpenseAdded(response.data);
       setAmount('');
       setDescription('');
       setDate('');
+      
     } catch (error) {
       console.error('Failed to add expense', error);
-      alert('Error adding expense');
     }
   };
 

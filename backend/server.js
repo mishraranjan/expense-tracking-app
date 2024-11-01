@@ -9,30 +9,32 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://expense-tracking-frontend.onrender.com',
+  origin: (origin, callback) => {
+    if (['http://localhost:3000', process.env.FRONTEND_URL].indexOf(origin) !== -1 || !origin) {
+      callback(null, true); 
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add other methods as needed
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
 };
 
-
-// Use CORS with the specified options
 app.use(cors(corsOptions));
 
-// Import routes
+app.options('*', cors(corsOptions));
+
 const authRoutes = require('./routes/auth');
 const expenseRoutes = require('./routes/expenses');
 
-// Set up routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

@@ -5,11 +5,14 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import TransactionHistory from './components/TransactionHistory';
 import PrivateRoute from './components/PrivateRoute'; 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
     <Router>
       <div className="App">
+        <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

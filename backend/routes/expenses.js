@@ -3,7 +3,6 @@ const Expense = require('../models/Expense');
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 
-// Add expense
 router.post('/add', authMiddleware, async (req, res) => {
   const { amount, description, date } = req.body;
   const expense = new Expense({
@@ -16,13 +15,11 @@ router.post('/add', authMiddleware, async (req, res) => {
   res.json(expense);
 });
 
-// Get all expenses for a user
 router.get('/all', authMiddleware, async (req, res) => {
   const expenses = await Expense.find({ userId: req.user.id });
   res.json(expenses);
 });
 
-// Delete expense
 router.delete('/delete/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
   try {
@@ -36,7 +33,6 @@ router.delete('/delete/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Edit expense
 router.put('/edit/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
   const { amount, description, date } = req.body;

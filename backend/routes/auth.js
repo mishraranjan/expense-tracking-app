@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -25,18 +24,26 @@ router.post('/login', async (req, res) => {
 
   if (user && await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
-    
-    console.log("Generated Token: ", token); // Log the generated token
-    res.json({ token });
+        res.json({ token });
   } else {
     res.status(400).json({ message: 'Invalid credentials' });
   }
 });
 
+router.put('/updateIncome', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { income } = req.body;
+    await User.findByIdAndUpdate(userId, { income });
+    res.status(200).json({ message: "Income updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating income", error });
+  }
+});
 
 router.get('/user', authMiddleware, async (req, res) => {
     try {
-      const user = await User.findById(req.user.id).select('-password'); // Exclude password
+      const user = await User.findById(req.user.id).select('-password'); 
       res.json(user);
     } catch (err) {
       res.status(500).json({ msg: 'Server error' });

@@ -1,7 +1,8 @@
-// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify"; 
+import { BACKEND_URL } from './constant'; // Import your BACKEND_URL constant
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -11,21 +12,24 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`https://expense-tracking-backend-oht2.onrender.com/api/auth/login`, {
+      const response = await axios.post(`${BACKEND_URL}/api/auth/login`, { // Use BACKEND_URL here
         username,
         password,
       }, { withCredentials: true }); 
-      console.log(response.data);
       localStorage.setItem('token', response.data.token);
-      navigate('/dashboard');
+      toast.success(`${username} logged in successfully!`);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1000); 
     } catch (error) {
       console.error('Login failed', error);
-      alert('Invalid username or password');
+      toast.error('Invalid username or password'); 
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
+      <ToastContainer position="top-right" autoClose={2000} />
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <input

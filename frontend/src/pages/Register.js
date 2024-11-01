@@ -1,7 +1,8 @@
-// Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify"; 
+import { BACKEND_URL } from './constant'; // Import your BACKEND_URL constant
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -12,20 +13,23 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://expense-tracking-backend-oht2.onrender.com/api/auth/register`, {
+      await axios.post(`${BACKEND_URL}/api/auth/register`, { // Use BACKEND_URL here
         username,
         password,
         income,
-      }, { withCredentials: true }); // Include credentials if needed
-      navigate('/login');
+      }, { withCredentials: true });
+      toast.success(`${username} Successfully Registered`)
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
     } catch (error) {
-      console.error('Registration failed', error);
-      alert('Error registering user');
+      toast.error('Registration failed', error);
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
+      <ToastContainer position="top-right" autoClose={2000} />
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <input
